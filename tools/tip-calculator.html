@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="Tip Calculator">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A simple tip calculator to calculate tips at restaurants. This calculator will help you calculate your tip.">
+<title>Tip Calculator</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+      <center>  <h1>Tip Calculator</h1></center>
+        <section>
+            <div class="wrapper">
+                <label for="bill" class="lbl">
+                    Bill
+                </label>
+                <div class="input-box">
+                    <span>$</span>
+                    <input type="number" value="0.00" id="bill" class="val">
+                </div>
+            </div>
+            <div class="wrapper">
+                <span class="lbl">Tip</span>
+                <span id="tip-amount" class="val">
+                    $0
+                </span>
+            </div>
+            <hr>
+            <div class="wrapper">
+                <span class="lbl">Total Amount</span>
+                <span id="total-amount" class="val">
+                    $0
+                </span>
+            </div>
+        </section>
+        <section>
+            <div class="wrapper">
+                <label for="tip" class="lbl">
+                    Tip %
+                </label>
+                <span id="tip-percent" class="val">
+                    0
+                </span>
+            </div>
+            <input type="range" min="1" id="tip" value="15">
+            <div class="wrapper">
+                <label for="no-of-people" class="lbl">
+                    No. Of People
+                </label>
+                <span id="split-num" class="val">
+                    0
+                </span>
+            </div>
+            <input type="range" min="1" max="15" id="no-of-people" value="1">
+        </section>
+        <section>
+            <div class="wrapper">
+                <span class="lbl">
+                    Tip Per Person
+                </span>
+                <span id="tip-per-person" class="val">
+                    $0
+                </span>
+            </div>
+            <div class="wrapper">
+                <span class="lbl">
+                    Total Per Person
+                </span>
+                <span id="total-per-person" class="val">
+                    $0
+                </span>
+            </div>
+        </section>
+    </div>
+<style>
+*{
+    padding: 0;
+    margin: 0;
+    letter-spacing: 0.4px;
+}
+h1 {
+  font-size: 25px;
+}
+.container{
+    background-color: #ffffff;
+    width: 100%;
+    padding: 50px 40px;
+    border-radius: 10px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+}
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 12px 0;
+}
+.lbl{
+    font-size: 16px;
+    color: #44475b;
+    font-weight: 400;
+}
+.val{
+    color: #44475b;
+    font-weight: 500;
+    font-size: 18px;
+}
+.input-box{
+    background-color: #cdccfd;
+    color: #6f6df4;
+    padding: 5px;
+}
+#bill{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100px;
+    text-align: right;
+    color: #6f6df4;
+}
+hr{
+    border: none;
+    border-bottom: 1px solid #cdccfd;
+}
+input[type="range"]{
+    width: 100%;
+    cursor: pointer;
+}
+input[type="range"]:not(:last-child){
+    margin-bottom: 5px;
+}
+section:not(:last-child){
+    margin-bottom: 40px;
+}
+section:not(:first-child){
+    margin-top: 40px;
+}
+section:last-child{
+    background-color: #cdccfd;
+    padding: 10px;
+    border-radius: 5px;
+}
+section:last-child .val,
+section:last-child .lbl{
+    color: #4c4af4;
+}
+</style>
+<script>
+const sliders = document.querySelectorAll("input[type='range']");
+sliders.forEach(function(slider){
+    slider.addEventListener("input",calculateTip);
+});
+
+const billInput = document.getElementById("bill");
+billInput.addEventListener("change",calculateTip);
+
+
+function calculateTip(){
+    let bill = parseFloat(billInput.value);
+    let tipPercent = document.getElementById("tip").value;
+    let noOfPeople = document.getElementById("no-of-people").value;
+
+    billInput.value = bill.toFixed(2);
+
+    let totalTip = parseFloat((bill * (tipPercent/100)).toFixed(2));
+    let total = parseFloat((bill + totalTip).toFixed(2));
+
+    let tipPerPerson = (totalTip / noOfPeople).toFixed(2);
+    let totalPerPerson = (total / noOfPeople).toFixed(2);
+
+    document.getElementById("tip-amount").textContent = `\$ ${totalTip}`;
+    document.getElementById("total-amount").textContent = `\$ ${total}`;
+    
+    document.getElementById("tip-percent").textContent = `${tipPercent}%`;
+    document.getElementById("split-num").textContent = noOfPeople;
+
+    document.getElementById("tip-per-person").textContent = `\$ ${tipPerPerson}`;
+    document.getElementById("total-per-person").textContent = `\$ ${totalPerPerson}`;
+}
+calculateTip();
+</script>
+</body>
+</html>
