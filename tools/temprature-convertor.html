@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords" content="Temprature Convertor">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free tool for converting temprature from Celcius to Fahrenheit and Fahrenheit to Celcius."
+<title>Temperature Converter</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <center> <h1>Temprature Convertor</h1></center>
+    <div class="wrapper">
+        <div class="container">
+            <label for="celsius">Celsius</label>
+            <input type="number" id="celsius" oninput= "celToFar()">
+        </div>
+        <div class="container">
+            <label for="fahrenheit">Fahrenheit</label>
+            <input type="number" id="fahrenheit" oninput = "farToCel()">
+        </div>
+    </div>
+<center></center>
+<style>
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+}
+h1 {
+  font-size: 25px;
+}
+.wrapper{
+    width: 100%;
+    background-color: #ffffff;
+    padding: 70px 40px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+.container{
+    width: 45%;
+}
+input{
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid #d2d2d2;
+    outline: none;
+    margin-top: 8px;
+    padding: 0 10px;
+}
+input:focus{
+    border-color: #3164ff;
+}
+</style>
+<script>
+let celsius = document.getElementById("celsius");
+let fahrenheit = document.getElementById("fahrenheit");
+
+function celToFar(){
+    let output = ( parseFloat(celsius.value) * 9/5 ) + 32;
+    fahrenheit.value = parseFloat(output.toFixed(2));
+}
+
+function farToCel(){
+    let output = ( parseFloat(fahrenheit.value) - 32) * 5/9;
+    celsius.value = parseFloat( output.toFixed(2));
+    console.log(output);
+}
+</script>
+</body>
+</html>
